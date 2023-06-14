@@ -12,31 +12,31 @@ from imblearn.under_sampling import RandomUnderSampler
 data = pd.read_csv('Traffic_Accidents.csv')
 
 # Define a dictionary to map categories to numeric values
-weather_dict = {
-    '': 0,
-    'CLEAR': 1,
-    'RAIN': 2,
-    'CLOUDY': 3,
-    'SlEET, HAIL': 4,
-    'UNKNOWN': 5,
-    'FOG': 6,
-    'OTHER (NARRATIVE)': 7,
-    'BLOWING SNOW': 8,
-    'SMOG, SMOKE': 9,
-    'SEVERE CROSSWIND': 10,
-    'BLOWING SAND/SOIL/DIRT': 11
-}
-illum_dict = {
-    '': 0,
-    'DUSK': 1,
-    'DAWN': 2,
-    'DARK - LIGHTED': 3,
-    'DARK - NOT LIGHTED': 4,
-    'DARK-Unknown Lighting': 5,
-    'UNKNOWN': 6,
-    'DAYLIGHT': 7,
-    'OTHER': 8
-}
+# weather_dict = {
+#     '': 0,
+#     'CLEAR': 1,
+#     'RAIN': 2,
+#     'CLOUDY': 3,
+#     'SlEET, HAIL': 4,
+#     'UNKNOWN': 5,
+#     'FOG': 6,
+#     'OTHER (NARRATIVE)': 7,
+#     'BLOWING SNOW': 8,
+#     'SMOG, SMOKE': 9,
+#     'SEVERE CROSSWIND': 10,
+#     'BLOWING SAND/SOIL/DIRT': 11
+# }
+# illum_dict = {
+#     '': 0,
+#     'DUSK': 1,
+#     'DAWN': 2,
+#     'DARK - LIGHTED': 3,
+#     'DARK - NOT LIGHTED': 4,
+#     'DARK-Unknown Lighting': 5,
+#     'UNKNOWN': 6,
+#     'DAYLIGHT': 7,
+#     'OTHER': 8
+# }
 # coll_dict = {
 #     '': 0,
 #     'NOT COLLISION W/MOTOR VEHICLE-TRANSPORT': 1,
@@ -56,16 +56,16 @@ data['Property Damage'].fillna(value=False, inplace=True)
 data['Property Damage'] = data['Property Damage'].apply(lambda x: 1 if x == True else 0)
 
 # Map the categories to numeric values
-data['Weather Description'] = data['Weather Description'].map(weather_dict)
-data['Illumination Description'] = data['Illumination Description'].map(illum_dict)
+# data['Weather Description'] = data['Weather Description'].map(weather_dict)
+# data['Illumination Description'] = data['Illumination Description'].map(illum_dict)
 
 # Define a list of relevant columns and select only those columns for the dataframe. Drop rows with missing values
-relevant_columns = ['Weather Description', 'Illumination Description', 'Property Damage', 'Number of Injuries', 'Hit and Run', 'Number of Motor Vehicles'] # Indicate Relevant Columns for the Algorithm
+relevant_columns = ['Weather Code', 'Illumination Code', 'Property Damage', 'Number of Injuries', 'Hit and Run', 'Number of Motor Vehicles', 'Collision Type Code'] # Indicate Relevant Columns for the Algorithm
 data = data[relevant_columns].dropna()
 
 
 # Step 2: Split data into training and testing sets
-X = data[['Weather Description', 'Illumination Description', 'Property Damage', 'Hit and Run', 'Number of Motor Vehicles']] # Features (independent variables) 
+X = data[['Weather Code', 'Illumination Code', 'Property Damage', 'Hit and Run', 'Number of Motor Vehicles', 'Collision Type Code']] # Features (independent variables) 
 y = data['Number of Injuries'] # Target Variable (dependent variable)
 
 # 66-33 train-test  = 66% of the data for the training model and 33% for testing the models performance
